@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import './App.css'; 
 import './index.css'; 
 import Footer from './components/footer';
+//import ProductDetail from './views/ProductDetail';
 
 
 const Home = () => <div><h1>¡Bienvenido a Casa!</h1><p style={{textAlign: 'center', marginTop: '20px'}}>Esta es la página de Inicio.</p></div>;
