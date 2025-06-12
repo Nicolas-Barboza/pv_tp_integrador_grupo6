@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
 import './App.css'; 
 import './index.css'; 
 
@@ -16,6 +17,7 @@ function App() {
     <div>
       <Router>
         <div className="app-container">
+          <NavBar />
           <main className="content-wrap" style={{ paddingTop: "10px" }}>
             <div className="main-content-area">
               <Routes>
