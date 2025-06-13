@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { toggleFavorite } from '../redux/slices/favoritesSlice'; // Import action
-import styles from '../styles/AlumnoCard.module.css'; // You might want to rename this CSS module
-import { FaEdit, FaTrashAlt, FaEye, FaHeart } from 'react-icons/fa';
-import ConfirmacionModal from './ConfirmacionModal';
+import styles from '../styles/ProductCard.module.css'; 
+import { FaEye, FaHeart } from 'react-icons/fa'; 
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 
-function ProductCard({ product, onEliminar }) {
+function ProductCard({ product }) {
     if (!product) {
         return null;
     }
@@ -14,52 +14,46 @@ function ProductCard({ product, onEliminar }) {
     const favorites = useSelector(state => state.favorites.items);
     const isFavorite = favorites.some(fav => fav.id === product.id);
 
-    const [showModal, setShowModal] = React.useState(false);
-
-    const handleEliminarClick = () => {
-        setShowModal(true);
-    };
-
-    const handleConfirmarEliminar = () => {
-        if (product && onEliminar) {
-            onEliminar(product.id);
-        }
-    };
-
     const handleToggleFavorite = () => {
-        dispatch(toggleFavorite(product)); // Dispatch toggleFavorite action
+        dispatch(toggleFavorite(product));
     };
 
     return (
-        <div className={styles.alumnoCard}>
-            <div className={styles.infoContainer}>
-                <h4>{product.title}</h4>
-                <p><strong>Precio:</strong> ${product.price}</p>
-                <p><strong>Categoría:</strong> {product.category}</p>
-            </div>
-            <div className={styles.actionsContainer}>
-                <Link to={`/products/${product.id}/edit`} className={styles.iconLink} title="Editar Producto">
-                    <FaEdit />
-                </Link>
-                <button onClick={handleEliminarClick} className={styles.iconButton} title="Eliminar Producto">
-                    <FaTrashAlt />
-                </button>
-                <Link to={`/products/${product.id}`} className={styles.iconLink} title="Ver Detalles">
-                    <FaEye />
-                </Link>
-                <button onClick={handleToggleFavorite} className={styles.iconButton} title="Marcar como favorito">
-                    <FaHeart style={{ color: isFavorite ? 'red' : 'gray' }} />
-                </button>
-            </div>
+        <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
+            <Card className={styles.productCardCustom}>
+                <div className={styles.imageWrapper}>
+                    <Card.Img
+                        variant="top"
+                        src={product.image}
+                        alt={product.title}
+                        className={styles.productImage}
+                    />
+                </div>
+                <Card.Body className={styles.cardBodyCustom}>
+                    <Card.Title className={styles.productTitle}>{product.title}</Card.Title>
+                    <Card.Text className={styles.productCategory}>
+                        <strong>Categoría:</strong> {product.category}
+                    </Card.Text>
+                    <Card.Text className={styles.productDescription}>
+                        {product.description ? `${product.description.substring(0, 70)}...` : 'Sin descripción disponible.'}
+                    </Card.Text>
 
-            <ConfirmacionModal
-                show={showModal}
-                onHide={() => setShowModal(false)}
-                onConfirm={handleConfirmarEliminar}
-                title="Confirmar Eliminación"
-                message={`¿Estás seguro de que deseas eliminar el producto ${product.title}?`}
-            />
-        </div>
+                    <p className={styles.productPriceDisplay}>
+                        ${product.price}
+                    </p>
+
+                    <div className={styles.actionsFooter}>
+                        <Link to={`/products/${product.id}`} className={`${styles.actionIconButton} ${styles.viewButton}`} title="Ver Detalles">
+                            <FaEye />
+                        </Link>
+                        <button onClick={handleToggleFavorite} className={`${styles.actionIconButton} ${styles.favoriteButton}`} title="Marcar como favorito">
+                            <FaHeart style={{ color: isFavorite ? 'red' : 'gray' }} />
+                        </button>
+                    </div>
+                </Card.Body>
+            </Card>
+        </Col>
     );
 }
+
 export default ProductCard;

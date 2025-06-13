@@ -1,0 +1,204 @@
+.productCardCustom {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dcdcdc; 
+    border-radius: 18px; 
+    overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+    transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out, border-color 0.25s ease;
+    position: relative;
+}
+
+.productCardCustom:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25); 
+    border-color: #c0c0c0; 
+}
+
+.imageWrapper {
+    height: 200px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f8f8;
+    padding: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.productImage {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: transform 0.25s ease;
+}
+
+.productCardCustom:hover .productImage {
+    transform: scale(1.03);
+}
+
+.cardBodyCustom {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.productTitle {
+    font-size: 1.35em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+    height: 3.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.25;
+}
+
+.productCategory {
+    font-size: 0.88em;
+    color: #777;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.productDescription {
+    font-size: 0.95em;
+    color: #555;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    height: 4.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+}
+
+.bottomSection {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #e9e9e9;
+    padding-bottom: 5px; 
+}
+
+.productPrice {
+    font-size: 1.6em;
+    font-weight: 800;
+    color: #28a745;
+    margin: 0; 
+    text-align: left; 
+    flex-grow: 1; 
+}
+
+.productPrice strong {
+    font-weight: 600;
+    color: #444;
+    margin-right: 8px;
+}
+
+.actionsGroup {
+    display: flex;
+    gap: 10px; 
+    align-items: center;
+}
+
+.iconButton {
+    color: #555;
+    font-size: 1.1em; 
+    text-decoration: none;
+    padding: 10px; 
+    border-radius: 50%; 
+    background-color: #f0f2f5;
+    transition: all 0.2s ease-in-out;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.iconButton:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.viewButton:hover {
+    color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.favoriteButton:hover {
+    color: red;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.favoriteButton .fa-heart {
+    color: red;
+}
+
+@media (max-width: 768px) {
+    .productCardCustom {
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    .productCardCustom:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    .imageWrapper {
+        height: 180px;
+        padding: 10px;
+    }
+    .cardBodyCustom {
+        padding: 1rem;
+    }
+    .productTitle {
+        font-size: 1.25em;
+        height: 3.5em;
+        -webkit-line-clamp: 2;
+    }
+    .productCategory {
+        font-size: 0.8em;
+    }
+    .productDescription {
+        font-size: 0.88em;
+        height: 4.2em;
+        -webkit-line-clamp: 3;
+    }
+    .bottomSection {
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 10px;
+        padding-bottom: 0;
+    }
+    .productPrice {
+        font-size: 1.5em;
+        text-align: left;
+        margin-bottom: 0.5rem;
+    }
+    .actionsGroup {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+    .iconButton {
+        font-size: 1em;
+        padding: 8px;
+    }
+}

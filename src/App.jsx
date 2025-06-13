@@ -3,11 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import './App.css'; 
 import './index.css'; 
-import ProductsList from './views/ProductsList';
+import ProductsList from './views/Home';
 import Footer from './components/footer';
 
 
-const Home = () => <div><h1>¡Bienvenido a Casa!</h1><p style={{textAlign: 'center', marginTop: '20px'}}>Esta es la página de Inicio.</p></div>;
 const ProductForm = () => <div><h1>Formulario de Producto</h1><p style={{textAlign: 'center', marginTop: '20px'}}>Esta página permitirá añadir/editar productos.</p></div>;
 const FavoritesPage = () => <div><h1>Favoritos</h1><p style={{textAlign: 'center', marginTop: '20px'}}>Esta página mostrará productos favoritos.</p></div>;
 const ProductDetail = () => <div><h1>Detalle del Producto</h1><p style={{textAlign: 'center', marginTop: '20px'}}>Esta página mostrará los detalles del producto.</p></div>;

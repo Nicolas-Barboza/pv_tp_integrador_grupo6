@@ -1,5 +1,5 @@
 import Titulo from '../components/Titulo';
-import ProductCard from '../components/ProductCard'; // Import the renamed component
+import ProductCard from '../components/ProductCard'; 
 import { Link } from 'react-router-dom';
 
 const listContainerStyle = {
@@ -29,7 +29,7 @@ const productListWrapperStyle = {
 };
 
 
-function ProductsList({ products, onEliminarProducto }) { // Changed prop name
+function Home({ products}) { 
     if (!products || products.length === 0) {
         return (
             <div style={productListWrapperStyle}>
@@ -48,9 +48,8 @@ function ProductsList({ products, onEliminarProducto }) { // Changed prop name
             <div style={listContainerStyle}>
                 {products.map((product) => (
                     <ProductCard
-                        key={product.id} // Changed key from lu to id
+                        key={product.id} 
                         product={product}
-                        onEliminar={onEliminarProducto}
                     />
                 ))}
             </div>
@@ -58,4 +57,4 @@ function ProductsList({ products, onEliminarProducto }) { // Changed prop name
     );
 }
 
-export default ProductsList;
+export default Home;
