@@ -1,0 +1,98 @@
+.formContainerWrapper {
+    max-width: 650px;
+    margin: 30px auto 50px auto; 
+    padding: 0px;
+}
+
+.productFormCard {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 15px; 
+}
+
+.formContainerWrapper label {
+    color: #34495e; 
+    font-size: 0.95em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block; 
+}
+
+/* Estilos de inputs (Form.Control de Bootstrap) */
+.formContainerWrapper input[type="text"],
+.formContainerWrapper input[type="email"],
+.formContainerWrapper input[type="tel"],
+.formContainerWrapper input[type="number"],
+.formContainerWrapper input[type="url"],
+.formContainerWrapper textarea {
+    border: 1px solid #ced4da; 
+    border-radius: 8px;
+    padding: 10px 15px; 
+    font-size: 1em;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+}
+
+.formContainerWrapper input:focus,
+.formContainerWrapper textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.formContainerWrapper input[disabled] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Estilo para el mensaje de error general */
+.formContainerWrapper .text-danger { 
+    font-size: 0.9em;
+    margin-top: 15px;
+    text-align: center;
+    color: #dc3545; 
+    font-weight: 500;
+}
+
+/* Estilo para el mensaje de error de validación de Bootstrap */
+.form-control.is-invalid + .invalid-feedback {
+    display: block; 
+    font-size: 0.85em;
+    color: #dc3545;
+    margin-top: 5px;
+}
+
+
+.buttonContainer {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end; 
+}
+
+.submitButton {
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 8px; 
+    background-color: #28a745; 
+    padding: 12px 25px; 
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.submitButton:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.cancelButton {
+    composes: submitButton; 
+    background-color: #6c757d; 
+}
+
+.cancelButton:hover {
+    background-color: #5a6268;
+}
