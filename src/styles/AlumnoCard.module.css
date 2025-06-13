@@ -1,0 +1,83 @@
+.alumnoCard {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    width: 300px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.alumnoCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.infoContainer {
+    margin-bottom: 15px;
+}
+
+.alumnoCard h4 { 
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.25em;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.alumnoCard p { 
+    margin: 6px 0;
+    font-size: 0.95em;
+    color: #555;
+    overflow-wrap: break-word;        
+}
+
+.alumnoCard p strong {
+    color: #444;
+}
+
+.actionsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.iconLink,
+.iconButton {
+    color: #555;
+    font-size: 1.1em;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 50%;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.iconLink {
+    display: inline-block;
+    text-align: center;
+}
+.iconLink:hover,
+.iconButton:hover {
+    color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.iconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.iconButton:hover {
+    color: #dc3545; 
+    background-color: rgba(220, 53, 69, 0.1);
+}

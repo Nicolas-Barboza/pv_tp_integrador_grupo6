@@ -89,7 +89,7 @@
 }
 
 .cancelButton {
-    composes: submitButton; 
+    mask-composite: submitButton; 
     background-color: #6c757d; 
 }
 
