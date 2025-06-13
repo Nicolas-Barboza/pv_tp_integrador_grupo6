@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import './App.css'; 
 import './index.css'; 
 import ProductsList from './views/ProductsList';
+import Footer from './components/footer';
 
 
 const Home = () => <div><h1>¡Bienvenido a Casa!</h1><p style={{textAlign: 'center', marginTop: '20px'}}>Esta es la página de Inicio.</p></div>;
@@ -32,6 +33,7 @@ function App() {
             </div>
           </main>
         </div>
+        <Footer />
       </Router>
     </div>
   );
