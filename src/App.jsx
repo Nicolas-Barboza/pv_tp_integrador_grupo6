@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import './App.css'; 
 import './index.css'; 
+import ProductsList from './views/ProductsList';
 import Footer from './components/footer';
 
 
@@ -22,7 +23,7 @@ function App() {
           <main className="content-wrap" style={{ paddingTop: "10px" }}>
             <div className="main-content-area">
               <Routes>
-                <Route path="/home" element={<Home />} />
+                <Route path="/home" element={<ProductsList />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
                 <Route path="/products/new" element={<ProductForm />} />
                 <Route path="/products/:id/edit" element={<ProductForm />} />
