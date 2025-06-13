@@ -1,12 +1,40 @@
-# React + Vite
+Sistema de Gestión de Productos - SPA en React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introducción
+Este proyecto fue desarrollado como parte del **Trabajo Final Integrador** de la materia **Programacion Visual** en la carrera **Analista Programador Universitario**. El objetivo principal es construir una **Single Page Application (SPA)** utilizando **React** y **Vite**, con manejo de estado global mediante **Context API o Redux**.
 
-Currently, two official plugins are available:
+Esta aplicación web construida con **React + Vite** que permite gestionar productos a través de una interfaz amigable y moderna. El proyecto incluye funcionalidades como visualización, creación, edición, y marcado de favoritos, todo con manejo de estado global usando **Context API** o **Redux**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologías Utilizadas
+- ⚛️ React + Vite
+- 🧭 React Router DOM
+- 📦 Context API o Redux
+- 🌐 API externa: [Fake Store API](https://fakestoreapi.com/products)
+- 📡 Fetch 
+- 🧱 JSX para estructuración de componentes
 
-## Expanding the ESLint configuration
+## ✨ Características
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🏠 **Home:** Lista de productos en formato card.
+- 🔍 **Detalle de Producto:** Información ampliada con opción de desmarcar como favorito.
+- ❤️ **Favoritos:** Vista con todos los productos marcados.
+- 🛠️ **CRUD de Productos:** Crear y editar productos con formulario reutilizable.
+- 📝 **Formulario de Creación y Edición:** Crear nuevo producto (desde la Home o menú) ,Editar producto      
+existente con datos precargados
+
+## 🛠️ Instalación
+
+# Clonar el repositorio
+git clone https://github.com/tu_usuario/mi-spa-productos.git
+cd mi-spa-productos
+# Instalar dependencias
+npm install
+# Iniciar servidor de desarrollo
+npm run dev
+
+## 🧑‍💻 Alumnos
+- Nicolas Barboza
+- Joaquín Coca
+- Facundo Cortez 
+- Carrera: [Analista Programador Universitario]
+- Universidad: [Facultad de Ingenieria de la Universidad Nacional de Jujuy]
