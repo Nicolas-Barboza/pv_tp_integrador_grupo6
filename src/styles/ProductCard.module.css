@@ -1,24 +1,26 @@
+/* ProductCard.module.css - Versión con Precio y Íconos Ver Detalles/Favorito abajo */
+
 .productCardCustom {
     height: 100%;
     display: flex;
     flex-direction: column;
-    border: 1px solid #dcdcdc; 
-    border-radius: 18px; 
+    border: 1px solid #dcdcdc; /* Borde sutil pero visible */
+    border-radius: 18px; /* Bordes más redondeados */
     overflow: hidden;
     background-color: #ffffff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
     transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out, border-color 0.25s ease;
     position: relative;
 }
 
 .productCardCustom:hover {
-    transform: translateY(-10px); 
-    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25); 
-    border-color: #c0c0c0; 
+    transform: translateY(-10px); /* Mayor elevación en hover */
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25); /* Sombra más intensa en hover */
+    border-color: #c0c0c0; /* Borde un poco más oscuro en hover */
 }
 
 .imageWrapper {
-    height: 200px; 
+    height: 200px; /* Altura fija para la imagen */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +35,7 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    border-radius: 12px;
+    border-radius: 12px; /* Bordes redondeados para la imagen */
     transition: transform 0.25s ease;
 }
 
@@ -85,23 +87,24 @@
     line-height: 1.5;
 }
 
+/* Nueva sección inferior para precio y acciones */
 .bottomSection {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between; /* Alinear precio a un lado y acciones al otro */
     align-items: center;
-    margin-top: auto;
+    margin-top: auto; /* Empuja esta sección al final del cardBodyCustom */
     padding-top: 15px;
     border-top: 1px solid #e9e9e9;
-    padding-bottom: 5px; 
+    padding-bottom: 5px; /* Pequeño padding inferior para espacio */
 }
 
 .productPrice {
     font-size: 1.6em;
     font-weight: 800;
     color: #28a745;
-    margin: 0; 
-    text-align: left; 
-    flex-grow: 1; 
+    margin: 0; /* Reiniciar margen para que flexbox lo maneje */
+    text-align: left; /* Alinear precio a la izquierda dentro de su espacio */
+    flex-grow: 1; /* Permite que el precio ocupe el espacio disponible */
 }
 
 .productPrice strong {
@@ -112,29 +115,30 @@
 
 .actionsGroup {
     display: flex;
-    gap: 10px; 
+    gap: 10px; /* Espacio entre los iconos de acción */
     align-items: center;
 }
 
+/* Estilos para los íconos (Ver Detalles y Favorito) */
 .iconButton {
     color: #555;
-    font-size: 1.1em; 
+    font-size: 1.1em; /* Tamaño estándar para íconos */
     text-decoration: none;
-    padding: 10px; 
-    border-radius: 50%; 
-    background-color: #f0f2f5;
+    padding: 10px; /* Padding para hacer el área clickeable */
+    border-radius: 50%; /* Circular */
+    background-color: #f0f2f5; /* Fondo suave para los botones */
     transition: all 0.2s ease-in-out;
-    display: flex; 
+    display: flex; /* Para centrar ícono */
     align-items: center;
     justify-content: center;
     border: none;
     cursor: pointer;
     line-height: 1;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra sutil para los botones */
 }
 
 .iconButton:hover {
-    transform: translateY(-2px); 
+    transform: translateY(-2px); /* Pequeña elevación en hover */
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
@@ -148,10 +152,12 @@
     background-color: rgba(255, 0, 0, 0.1);
 }
 
+/* Si es favorito, el corazón es rojo */
 .favoriteButton .fa-heart {
     color: red;
 }
 
+/* Media Queries para responsividad */
 @media (max-width: 768px) {
     .productCardCustom {
         border-radius: 15px;
@@ -182,8 +188,8 @@
         -webkit-line-clamp: 3;
     }
     .bottomSection {
-        flex-direction: column; 
-        align-items: flex-start; 
+        flex-direction: column; /* Apilar en móviles */
+        align-items: flex-start; /* Alinear a la izquierda en móviles */
         gap: 10px;
         padding-bottom: 0;
     }

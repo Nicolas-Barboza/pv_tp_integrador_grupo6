@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { toggleFavorite } from '../redux/slices/favoritesSlice';
 import styles from '../styles/ProductCard.module.css'; 
 import { FaEye, FaHeart } from 'react-icons/fa'; 
 import Card from 'react-bootstrap/Card';
@@ -15,7 +16,7 @@ function ProductCard({ product }) {
     const isFavorite = favorites.some(fav => fav.id === product.id);
 
     const handleToggleFavorite = () => {
-        dispatch(toggleFavorite(product));
+        dispatch(toggleFavorite(product)); 
     };
 
     return (
@@ -37,18 +38,19 @@ function ProductCard({ product }) {
                     <Card.Text className={styles.productDescription}>
                         {product.description ? `${product.description.substring(0, 70)}...` : 'Sin descripción disponible.'}
                     </Card.Text>
-
-                    <p className={styles.productPriceDisplay}>
-                        ${product.price}
-                    </p>
-
-                    <div className={styles.actionsFooter}>
-                        <Link to={`/products/${product.id}`} className={`${styles.actionIconButton} ${styles.viewButton}`} title="Ver Detalles">
-                            <FaEye />
-                        </Link>
-                        <button onClick={handleToggleFavorite} className={`${styles.actionIconButton} ${styles.favoriteButton}`} title="Marcar como favorito">
-                            <FaHeart style={{ color: isFavorite ? 'red' : 'gray' }} />
-                        </button>
+                    
+                    <div className={styles.bottomSection}>
+                        <p className={styles.productPrice}>
+                            ${product.price}
+                        </p>
+                        <div className={styles.actionsGroup}>
+                            <Link to={`/products/${product.id}`} className={`${styles.iconButton} ${styles.viewButton}`} title="Ver Detalles">
+                                <FaEye />
+                            </Link>
+                            <button onClick={handleToggleFavorite} className={`${styles.iconButton} ${styles.favoriteButton}`} title="Marcar como favorito">
+                                <FaHeart style={{ color: isFavorite ? 'red' : 'gray' }} />
+                            </button>
+                        </div>
                     </div>
                 </Card.Body>
             </Card>
