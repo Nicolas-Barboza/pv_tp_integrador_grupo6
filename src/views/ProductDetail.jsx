@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Titulo from '../components/Titulo';
-import styles from '../styles/DetalleAlumno.module.css'; // You might want to rename this CSS module
+//import styles from '../styles/DetalleAlumno.module.css'; // You might want to rename this CSS module
 import { FaHeart } from 'react-icons/fa';
 
 function ProductDetail() {

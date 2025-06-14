@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../styles/Notification.css'; 
+//import '../styles/Notification.css'; 
 
 const Notification = ({ mensaje, tipo, onClose }) => {
     useEffect(() => {
