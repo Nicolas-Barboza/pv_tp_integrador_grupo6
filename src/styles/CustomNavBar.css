@@ -1,27 +1,27 @@
 .custom-navbar {
-    background-color: #ffffff !important; 
-    min-height: 68px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid #e9e9e9;
-    transition: all 0.3s ease-in-out;
+    background-color: #1e1e2f;
+    border-bottom: 2px solid #2ecc71;
+    box-shadow: 0 0 10px #2ecc71;
 }
 
 .custom-navbar .custom-navbar-brand,
 .custom-navbar .navbar-brand:hover,
 .custom-navbar .navbar-brand:focus {
-    color: #333333 !important;
+    color: #ecf0f1 !important;
     font-size: 1.6em;
     font-weight: 700;
     text-shadow: none !important;
     text-decoration: none !important;
     letter-spacing: 0.3px;
+    display: flex; 
+    align-items: center;
 }
 
 .custom-navbar .custom-nav-link {
-    color: #666666 !important;
+    color: #bdc3c7 !important; 
     background-color: transparent !important;
     padding: 10px 16px !important;
-    border-radius: 0px !important; 
+    border-radius: 4px !important; 
     border: none !important;
     margin-left: 6px;
     margin-right: 6px;
@@ -33,6 +33,7 @@
     align-items: center;
     text-decoration: none !important;
     position: relative;
+    overflow: hidden;
 }
 
 .custom-navbar .custom-nav-link::after {
@@ -42,15 +43,15 @@
     left: 0;
     width: 100%;
     height: 3px;
-    background-color: #007bff;
+    background-color: #3498db; 
     transform: scaleX(0);
     transition: transform 0.2s ease-out;
     transform-origin: center;
 }
 
 .custom-navbar .custom-nav-link:hover {
-    color: #007bff !important;
-    background-color: transparent !important;
+    color: #ffffff !important; 
+    background-color: rgba(255, 255, 255, 0.05) !important; 
     box-shadow: none !important;
     transform: none;
 }
@@ -60,15 +61,25 @@
 }
 
 .custom-navbar .custom-nav-link.active {
-    color: #007bff !important; 
-    background-color: rgba(0, 123, 255, 0.05) !important;
+    color: #ffffff !important; 
+    background-color: rgba(52, 152, 219, 0.15) !important; 
     box-shadow: none !important;
     transform: translateY(0px);
 }
 .custom-navbar .custom-nav-link.active::after {
-    transform: scaleX(1);
-    background-color: #007bff;
+    transform: scaleX(1); 
+    background-color: #3498db; 
 }
+.icono-titulo {
+  color: #00bcd4; 
+  font-size: 1.4em;
+  transition: color 0.3s ease;
+}
+
+.icono-titulo:hover {
+  color: #f39c12; 
+}
+
 
 @media (max-width: 991.98px) {
     .custom-navbar { min-height: 60px; }
