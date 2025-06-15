@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Titulo from '../components/Titulo';
-//import styles from '../styles/DetalleAlumno.module.css'; // You might want to rename this CSS module
+import styles from '../styles/ProductDetail.module.css'; 
 import { FaHeart } from 'react-icons/fa';
 
 function ProductDetail() {
@@ -64,21 +64,27 @@ function ProductDetail() {
 
     return (
         <div>
-            <Titulo texto={`Detalle Producto: ${product.title}`} />
-
+            <Titulo texto={`Titulo: ${product.title}`} />
+            <div className={styles.detalleWrapper}>
+            <div className={styles.imageWrapper}>
+            <div className={styles.col2}>
+            <button onClick={handleToggleFavorite} className={styles.iconButton} title="Marcar como favorito">
+                    <FaHeart style={{ color: isFavorite ? 'red' : 'gray', fontSize: '1em'}} />
+                </button>
+                <img src={product.image} alt={product.title} className={styles.imagenDetalle} />
+            </div>
+            </div>
+            <div className={styles.col1}>
             <div className={styles.detalleContainer}>
                 <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>ID:</strong> {product.id}</p>
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Título:</strong> {product.title}</p>
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Descripción:</strong> {product.description}</p>
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Precio:</strong> ${product.price}</p>
                 <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Categoría:</strong> {product.category}</p>
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Imagen:</strong> <img src={product.image} alt={product.title} style={{ maxWidth: '100px', height: 'auto' }} /></p>
-                {/* Assuming 'stock' might be a field from the API or something you add */}
+                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Precio:</strong> ${product.price}</p>
                 <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Stock:</strong> {product.rating?.count || "N/A"}</p> {/* Example: using rating.count as stock */}
-                <button onClick={handleToggleFavorite} className={styles.iconButton} title="Marcar como favorito" style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '1.5em', marginTop: '10px' }}>
-                    <FaHeart style={{ color: isFavorite ? 'red' : 'gray' }} /> {isFavorite ? 'Quitar de Favoritos' : 'Agregar a Favoritos'}
-                </button>
+                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Descripción:</strong> {product.description}</p>
+                
             </div>
+            </div>
+        </div>
 
             <div className={styles.centeredButtonContainer}>
                 <Link to="/products" className={styles.backButton}>Volver a la Lista</Link>
