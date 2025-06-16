@@ -1,0 +1,265 @@
+.acercaDePage {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-family: 'Lato', sans-serif;
+}
+
+.sectionBlock {
+    background-color: #1a1a2e; 
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+    padding: 40px;
+    margin-bottom: 50px; 
+    color: #f0f0f0; 
+}
+
+.sectionHeading {
+    color: #00bcd4; 
+    font-size: 2.5em;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(0, 188, 212, 0.4); 
+}
+
+.paragraphText {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #c0c0c0; 
+    margin-bottom: 25px;
+    text-align: justify; 
+}
+
+.paragraphText a {
+    color: #3498db; 
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.paragraphText a:hover {
+    text-decoration: underline;
+    color: #2980b9;
+}
+
+.pillarCard {
+    background-color: #2b2b40; 
+    border: none;
+    border-radius: 10px;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.pillarCard:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 188, 212, 0.4); 
+    background-color: #3a3a50; 
+}
+
+.pillarIcon {
+    font-size: 3.5em;
+    color: #f39c12; 
+    margin-bottom: 20px;
+    animation: pulse 2s infinite ease-in-out; 
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pillarTitle {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.pillarText {
+    font-size: 1em;
+    color: #c0c0c0;
+}
+
+.techStackContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.techPill {
+    background-color: #3498db; 
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.techPill:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+}
+
+.techPill svg {
+    font-size: 1.1em;
+}
+
+.subHeading {
+    color: #2ecc71; 
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(46, 204, 113, 0.2);
+    padding-bottom: 10px;
+}
+
+.featureList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.featureList li {
+    font-size: 1em;
+    color: #c0c0c0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.listCheckIcon {
+    color: #2ecc71; 
+    font-size: 1.2em;
+    flex-shrink: 0; 
+    margin-top: 2px; 
+}
+
+.teamList {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.teamMember {
+    font-size: 1.2em;
+    color: #f0f0f0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-weight: 500;
+}
+
+.teamMember svg {
+    color: #9b59b6; 
+    font-size: 1.3em;
+    margin-right: 5px;
+}
+
+.githubProfileLink {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.githubProfileLink:hover {
+    color: #2980b9;
+    text-decoration: underline;
+    transform: translateX(5px);
+}
+
+@media (max-width: 992px) {
+    .sectionBlock {
+        padding: 30px;
+    }
+    .sectionHeading {
+        font-size: 2em;
+    }
+    .pillarTitle {
+        font-size: 1.4em;
+    }
+    .subHeading {
+        font-size: 1.6em;
+    }
+    .teamMember {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .sectionBlock {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    .sectionHeading {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+    .paragraphText {
+        font-size: 1em;
+        text-align: left; 
+    }
+    .pillarCard {
+        padding: 20px;
+    }
+    .pillarIcon {
+        font-size: 3em;
+    }
+    .pillarTitle {
+        font-size: 1.3em;
+    }
+    .subHeading {
+        font-size: 1.4em;
+    }
+    .techPill {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+    .teamMember {
+        font-size: 1em;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    .githubProfileLink {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sectionHeading {
+        font-size: 1.5em;
+    }
+    .pillarIcon {
+        font-size: 2.5em;
+    }
+    .pillarTitle {
+        font-size: 1.1em;
+    }
+    .subHeading {
+        font-size: 1.2em;
+    }
+}
