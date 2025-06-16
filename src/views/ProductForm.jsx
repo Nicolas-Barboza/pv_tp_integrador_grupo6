@@ -37,7 +37,7 @@ function ProductForm() {
                 setModoEdicion(true);
             } else {
                 console.warn(`Producto con ID "${productIdParam}" no encontrado para editar.`);
-                navigate('/products');
+                navigate('/Home');
             }
         } else { // Modo Creación
             setProduct(PRODUCTO_VACIO);
@@ -108,7 +108,7 @@ function ProductForm() {
         } else {
             dispatch(addProduct(productToSave));
         }
-        navigate('/products');
+        navigate('/Home');
     };
 
     const formTitle = modoEdicion ? "Editar Producto" : "Agregar Nuevo Producto";
@@ -171,7 +171,7 @@ function ProductForm() {
                             <Button
                                 variant="secondary"
                                 type="button"
-                                onClick={() => navigate('/products')}
+                                onClick={() => navigate('/Home')}
                                 className={styles.cancelButton}>Cancelar</Button>
                         </div>
                     </Form>

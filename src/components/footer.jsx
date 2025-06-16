@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaTwitter, FaFacebookF, FaGoogle, FaLinkedinIn, FaGithub, FaInstagram } from 'react-icons/fa';
+import { FaFacebookF, FaGoogle, FaLinkedinIn, FaGithub, FaInstagram } from 'react-icons/fa';
 import '../styles/CustomFooter.css'; 
 
 function Footer() {
@@ -9,8 +9,8 @@ function Footer() {
                 <Row>
                     <Col className="text-center"> 
                         <div className="mb-2"> 
-                            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="social-icon me-3">
-                                <FaTwitter size={22} />
+                            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" className="social-icon me-3">
+                            <FaInstagram size={22} />
                             </a>
                             <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="social-icon me-3">
                                 <FaFacebookF size={22} />
