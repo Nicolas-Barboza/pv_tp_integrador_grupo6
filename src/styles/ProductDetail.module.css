@@ -1,22 +1,20 @@
 .detalleContainer {
-    display: flex;
-    gap: 20px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    margin: 20px auto;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    max-width: 600px;
+    padding: 16px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
 .detalleWrapper {
     display: flex;
+    flex-direction: row; /* Lado a lado */
+    gap: 24px;
     align-items: flex-start;
+    flex-wrap: wrap; /* Permite responsividad */
     justify-content: center;
-    flex-wrap: wrap; /* hace que se acomode en pantallas pequeñas */
-    margin: 20px auto;
-    max-width: 1200px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto; /* ← Esto centra horizontalmente */
 }
 .col1 {
     flex: 2;
@@ -27,46 +25,86 @@
     flex: 1;
     min-width: 300px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .imageWrapper {
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .imagenDetalle {
-    max-width: 250px;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    display: block;
-    
+    padding: 16px;
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    border: 1px solid #ccc; /*Op: ayuda a visualizar el espacio */
+    background-color: #fff; /* Op: da fondo a espacios vacíos */
+    border-radius: 8px;
+    margin-top: 10px;
 }
-.infoDetalle {
-    flex: 1;
+.tituloDetalle {
+    font-size: 1.2em; /* Más grande que los demás */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+/* Fila horizontal que contiene ID, Categoría y Favorito */
+.infoFila {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.idCircle {
+    background-color: #eee;
+    color: #333;
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 16px;
+    text-align: center;
+    min-width: 32px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.lineaDivisoria {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 16px 0;
+}
+.precioDetalle {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4675b9;
+    margin-bottom: 8px;
 }
 .parrafoDetalle {
-    font-size: 16px;
-    margin: 10px 0;
-    line-height: 1.6;
+    font-size: 1em;
+    margin-bottom: 8px;
 }
 .strongDetalle {
     font-weight: bold;
-    color: #333;
-    margin-right: 5px;
-}  
+} 
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px; /* Igual altura que los otros elementos */
+}
 .iconButton {
-    position: absolute;
-    top: 8px;
-    left: 8px;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 2em;
-    z-index: 2;
-    padding: 8px;
-    color: gray;
-    transition: color 0.3s ease;
+    padding: 0;
+    display: flex;
+    align-items: center;
 }
 
 .iconButton:hover {
@@ -79,7 +117,7 @@
 }
 
 .backButton {
-    background-color: #007bff;
+    background-color: #4d4c4c;
     color: white;
     padding: 10px 18px;
     border-radius: 5px;
@@ -87,5 +125,5 @@
     transition: background-color 0.3s ease;
 }
 .backButton:hover {
-    background-color: #0056b3;
+    background-color: #4d4c4c;
 }

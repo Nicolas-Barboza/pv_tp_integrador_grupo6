@@ -64,32 +64,35 @@ function ProductDetail() {
 
     return (
         <div>
-            <Titulo texto={`Titulo: ${product.title}`} />
-            <div className={styles.detalleWrapper}>
-            <div className={styles.imageWrapper}>
-            <div className={styles.col2}>
-            <button onClick={handleToggleFavorite} className={styles.iconButton} title="Marcar como favorito">
-                    <FaHeart style={{ color: isFavorite ? 'red' : 'gray', fontSize: '1em'}} />
-                </button>
-                <img src={product.image} alt={product.title} className={styles.imagenDetalle} />
-            </div>
-            </div>
-            <div className={styles.col1}>
-            <div className={styles.detalleContainer}>
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>ID:</strong> {product.id}</p>
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Categoría:</strong> {product.category}</p>
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Precio:</strong> ${product.price}</p>
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Stock:</strong> {product.rating?.count || "N/A"}</p> {/* Example: using rating.count as stock */}
-                <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Descripción:</strong> {product.description}</p>
-                
-            </div>
-            </div>
+        <div className={styles.detalleWrapper}>
+        <div className={styles.imageWrapper}>
+        <div className={styles.col2}>
+            <img src={product.image} alt={product.title} className={styles.imagenDetalle} />
         </div>
-
-            <div className={styles.centeredButtonContainer}>
-                <Link to="/products" className={styles.backButton}>Volver a la Lista</Link>
-            </div>
         </div>
+        <div className={styles.col1}>
+        <div className={styles.detalleContainer}>
+            <p className={styles.tituloDetalle}>{product.title}</p>
+            <div className={styles.infoFila}>
+            <div className={styles.idCircle}><strong>ID:</strong>{product.id}</div>
+            <div className={styles.idCircle}><strong>Categoría:</strong> {product.category}</div>
+        <div className={styles.iconWrapper}>
+            <button onClick={handleToggleFavorite} className={styles.iconButton}title="Marcar como favorito">
+                <FaHeart style={{ color: isFavorite ? 'red' : 'gray', fontSize: '1.2em' }} />
+            </button>
+        </div>
+        </div>
+        <hr className={styles.lineaDivisoria} />
+            <p className={styles.precioDetalle}><strong>Precio:</strong> ${product.price}</p>
+            <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Stock:</strong> {product.rating?.count || "N/A"}</p><hr className={styles.lineaDivisoria} />
+            <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Descripción:</strong> {product.description}</p>
+        </div>
+        </div>
+    </div>
+        <div className={styles.centeredButtonContainer}>
+            <Link to="/products" className={styles.backButton}>Volver a la Lista</Link>
+        </div>
+    </div>
     );
 }
 
