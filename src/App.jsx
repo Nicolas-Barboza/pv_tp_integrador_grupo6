@@ -1,30 +1,26 @@
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts, addProduct, updateProduct, deleteProduct } from './redux/slices/productsSlice'; 
-import { removeFavorite } from './redux/slices/favoritesSlice'; 
+import { addProduct, updateProduct, deleteProduct } from './redux/slices/productsSlice'; // Solo las acciones CRUD
+import { removeFavorite } from './redux/slices/favoritesSlice';
 import NavBar from './components/NavBar';
-import Home from './views/Home'; 
+import Home from './views/Home';
 import ProductDetail from './views/ProductDetail';
 import ProductForm from './views/ProductForm';
 import FavoritesPage from './views/FavoritesPage';
 import Footer from './components/Footer';
 import Notification from './components/Notification';
+// Ya no necesitamos importar Spinner aquí
 
 function App() {
   const dispatch = useDispatch();
-  const products = useSelector(state => state.products.items);
-  const productStatus = useSelector(state => state.products.status);
-  const productError = useSelector(state => state.products.error);
-  const favorites = useSelector(state => state.favorites.items);
+  // Ya no necesitamos productStatus ni productError aquí, Home los manejará
+  const products = useSelector(state => state.products.items); // Todavía útil para manejar el ID al agregar
 
   const [notification, setNotification] = useState(null);
 
-  useEffect(() => {
-    if (productStatus === 'idle') {
-      dispatch(fetchProducts());
-    }
-  }, [productStatus, dispatch]);
+  // Ya no necesitamos useEffect para fetchProducts aquí, lo movimos a Home.jsx
 
   const mostrarNotification = (mensaje, tipo) => {
     setNotification({ mensaje, tipo });
@@ -35,8 +31,10 @@ function App() {
       dispatch(updateProduct({ id: productData.id, updatedProduct: productData }));
       mostrarNotification('Producto editado con éxito', 'success');
     } else {
-      const newProductWithTempId = { ...productData, id: Math.max(...products.map(p => p.id)) + 1 };
-      dispatch(addProduct(newProductWithTempId));
+      // Calcula el nuevo ID basado en los productos existentes para evitar duplicados
+      const newProductId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+      const newProductWithId = { ...productData, id: newProductId };
+      dispatch(addProduct(newProductWithId));
       mostrarNotification('Producto guardado con éxito', 'success');
     }
   };
@@ -47,13 +45,7 @@ function App() {
     mostrarNotification('Producto eliminado con éxito', 'error');
   };
 
-  if (productStatus === 'loading') {
-    return <div>Cargando productos...</div>;
-  }
-
-  if (productStatus === 'failed') {
-    return <div>Error al cargar productos: {productError}</div>;
-  }
+  // Aquí ya no hay lógica de carga, el spinner se manejará en Home.jsx
 
   return (
     <div>
@@ -65,15 +57,15 @@ function App() {
               <Routes>
                 <Route
                   path="/"
-                  element={<Home products={products} favorites={favorites} />} 
+                  element={<Home />} // Home ahora maneja su propia carga
                 />
                 <Route
                   path="/home"
-                  element={<Home products={products} favorites={favorites} />} 
+                  element={<Home />} // Home ahora maneja su propia carga
                 />
                 <Route
                   path="/products/:id"
-                  element={<ProductDetail products={products} favorites={favorites} />}
+                  element={<ProductDetail products={products} />} // ProductDetail puede seguir recibiendo products para buscar
                 />
                 <Route
                   path="/products/new"
@@ -83,7 +75,7 @@ function App() {
                   path="/products/:id/edit"
                   element={<ProductForm products={products} onGuardar={handleGuardarProducto} />}
                 />
-                <Route path="/favorites" element={<FavoritesPage products={products} favorites={favorites} />} />
+                <Route path="/favorites" element={<FavoritesPage />} />
               </Routes>
             </div>
           </main>

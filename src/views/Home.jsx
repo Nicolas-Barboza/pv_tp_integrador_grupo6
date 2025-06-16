@@ -1,3 +1,6 @@
+import React, { useEffect } from 'react'; 
+import { useSelector, useDispatch } from 'react-redux'; 
+import { fetchProducts } from '../redux/slices/productsSlice'; 
 import Titulo from '../components/Titulo';
 import ProductCard from '../components/ProductCard';
 import { Link } from 'react-router-dom';
@@ -6,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Spinner from '../components/Spinner'; 
 
 const listContainerStyle = {
     display: 'flex',
@@ -19,7 +23,31 @@ const noProductsStyle = {
     fontSize: '1.1em',
 };
 
-function Home({ products}) {
+function Home() { 
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.products.items);
+    const productStatus = useSelector(state => state.products.status);
+    const productError = useSelector(state => state.products.error);
+
+    useEffect(() => {
+        if (productStatus === 'idle') {
+            dispatch(fetchProducts());
+        }
+    }, [productStatus, dispatch]);
+
+    if (productStatus === 'loading') {
+        return <Spinner />;
+    }
+
+    if (productStatus === 'failed') {
+        return (
+            <Container className="py-4 text-center">
+                <Titulo texto="Error al cargar productos" />
+                <p>Ocurrió un error: {productError}</p>
+            </Container>
+        );
+    }
+
     if (!products || products.length === 0) {
         return (
             <Container className="py-4">
