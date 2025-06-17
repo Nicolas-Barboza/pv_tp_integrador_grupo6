@@ -10,17 +10,16 @@
 }
 .detalleWrapper {
     position: relative;
-    padding-top: 40px; /* espacio para la flecha */
+    padding-top: 40px; 
     display: flex;
-    flex-direction: row; /* Lado a lado */
+    flex-direction: row; 
     gap: 24px;
-    align-items: stretch; /**/
-    flex-wrap: nowrap;    /* Impide que se apilen */
-    /*flex-wrap: wrap;  Permite responsividad */
+    align-items: stretch; 
+    flex-wrap: nowrap;  
     justify-content: center;
     padding: 20px;
     max-width: 1000px;
-    margin: 0 auto; /* ← Esto centra horizontalmente */
+    margin: 0 auto; 
 }
 .col1, .col2 {
     flex: 1;
@@ -57,22 +56,22 @@
     width: 300px;
     height: 300px;
     object-fit: contain;
-    background-color: #fff; /* Op: da fondo a espacios vacíos */
+    background-color: #fff; 
     border-radius: 8px;
     margin-top: 10px;
 }
 .actionsContainer {
     display: flex;
-    justify-content: flex-end;  /* Alinea a la derecha */
-    gap: 15px;                  /* Espacio entre botones */
+    justify-content: flex-end;  
+    gap: 15px;                  
     margin-bottom: 10px;
 }
 .tituloDetalle {
-    font-size: 1.2em; /* Más grande que los demás */
+    font-size: 1.2em; 
     font-weight: bold;
     margin-bottom: 10px;
 }
-/* Fila horizontal que contiene ID, Categoría y Favorito */
+
 .infoFila {
     display: flex;
     align-items: center;
@@ -104,7 +103,7 @@
 .precioDetalle {
     font-size: 1.2em;
     font-weight: bold;
-    color: #007bff;
+    color: #007bff; 
     margin-bottom: 8px;
 }
 .parrafoDetalle {
@@ -113,12 +112,12 @@
 }
 .strongDetalle {
     font-weight: bold;
-} 
+}
 .iconWrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 32px; /* Igual altura que los otros elementos */
+    height: 32px;
 }
 .iconButton {
     background: none;
@@ -131,10 +130,15 @@
 }
 
 .iconButton:hover  {
-    transform: scale(1.3);         /* Agranda ligeramente */
+    transform: scale(1.3);       
     transition: transform 0.2s ease;
     color: rgb(211, 27, 27);
 }
+
+.iconButton.editButton:hover { 
+    color: #007bff; 
+}
+
 
 .centeredButtonContainer {
     text-align: center;
@@ -145,20 +149,108 @@
 }
 .backArrow {
     position: absolute;
-    top: 40px;
-    left: 60px;
-    text-decoration: none;
+    top: 20px; 
+    left: 60px; 
+    text-decoration: none !important;
     font-size: 1.1rem;
     color: #333;
-    background-color: white;
-    padding: 6px 12px;
+    background-color: white; 
+    padding: 6px 12px; 
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 10;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
 }
 .backArrow:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.3);         /* Agranda ligeramente */
-    transition: transform 0.2s ease;
+    background-color: #f0f0f0; 
+    transform: scale(1.3);    
+    color: #007bff; 
+    text-decoration: none !important; 
+}
+
+.backArrowButton {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #6c757d; 
+    color: white !important; 
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-decoration: none !important; 
+}
+
+.backArrowButton:hover {
+    background-color: #5a6268; 
+    transform: translateY(-2px);
+    text-decoration: none !important; 
+}
+
+.iconBeforeText {
+    margin-right: 8px; 
+}
+
+@media (max-width: 768px) {
+    .detalleWrapper {
+        flex-direction: column; 
+        padding: 15px; 
+        gap: 15px;
+    }
+
+    .col1, .col2 {
+        min-width: unset; 
+        width: 100%;
+    }
+
+    .imageWrapper {
+        padding: 10px;
+    }
+
+    .imagenDetalle {
+        width: 100%; 
+        height: auto; 
+        max-height: 250px; 
+    }
+
+    .actionsContainer {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .backArrow {
+        top: 15px; 
+        left: 15px;
+        font-size: 1.2rem; 
+        padding: 4px 8px;
+    }
+    
+    .tituloDetalle {
+        font-size: 1.1em; 
+        text-align: center; 
+    }
+
+    .infoFila {
+        flex-direction: column; 
+        align-items: center;
+        gap: 8px; 
+    }
+
+    .idCircle {
+        font-size: 0.7em; 
+        padding: 4px 8px;
+    }
+
+    .precioDetalle {
+        font-size: 0.9em; 
+    }
+
+    .parrafoDetalle {
+        font-size: 0.9em;
+        text-align: center; 
+    }
 }
