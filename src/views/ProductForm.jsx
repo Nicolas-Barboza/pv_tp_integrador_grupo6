@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, updateProduct } from '../redux/slices/productsSlice'; 
+import { addProduct, updateProduct } from '../redux/slices/productsSlice';
 import Titulo from '../components/Titulo';
-import styles from '../styles/ProductForm.module.css'; 
+import styles from '../styles/ProductForm.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card'; 
+import Card from 'react-bootstrap/Card';
 
 const PRODUCTO_VACIO = {
     id: '',
@@ -17,19 +17,18 @@ const PRODUCTO_VACIO = {
     image: '',
 };
 
-function ProductForm() {
+function ProductForm({ onFormSubmitSuccess }) {
     const { id: productIdParam } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.items);
-
     const [product, setProduct] = useState(PRODUCTO_VACIO);
     const [modoEdicion, setModoEdicion] = useState(false);
     const [errorId, setErrorId] = useState('');
     const [errorGeneral, setErrorGeneral] = useState('');
 
     useEffect(() => {
-        if (productIdParam && products && products.length > 0) { // Modo Edición
+        if (productIdParam && products && products.length > 0) {
             const productIdNumeric = parseInt(productIdParam, 10);
             const productToEdit = products.find(p => p.id === productIdNumeric);
             if (productToEdit) {
@@ -39,7 +38,7 @@ function ProductForm() {
                 console.warn(`Producto con ID "${productIdParam}" no encontrado para editar.`);
                 navigate('/Home');
             }
-        } else { // Modo Creación
+        } else {
             setProduct(PRODUCTO_VACIO);
             setModoEdicion(false);
         }
@@ -66,49 +65,58 @@ function ProductForm() {
         // Validaciones Básicas
         if (!product.title.trim() || !product.price || !product.description.trim() || !product.category.trim()) {
             setErrorGeneral("Los campos Título, Precio, Descripción y Categoría son obligatorios.");
+            if (onFormSubmitSuccess) onFormSubmitSuccess("Por favor, complete todos los campos obligatorios.", "error");
             return;
         }
 
         const priceNumeric = parseFloat(product.price);
         if (isNaN(priceNumeric) || priceNumeric <= 0) {
             setErrorGeneral("El precio debe ser un número positivo.");
+            if (onFormSubmitSuccess) onFormSubmitSuccess("El precio debe ser un número positivo.", "error");
             return;
         }
 
-        // ID Validación
+        let productToSave = { ...product };
+        let message = '';
+        let notificationType = '';
+        let newProductId = product.id;
+
         if (!modoEdicion) {
             const idString = product.id.toString().trim();
             if (!idString) {
                 setErrorId("El campo ID es obligatorio.");
+                if (onFormSubmitSuccess) onFormSubmitSuccess("El campo ID es obligatorio.", "error");
                 return;
             }
             const idNumeric = parseInt(idString, 10);
             if (isNaN(idNumeric) || idNumeric <= 0) {
                 setErrorId("El ID debe ser un número entero positivo.");
+                if (onFormSubmitSuccess) onFormSubmitSuccess("El ID debe ser un número entero positivo.", "error");
                 return;
             }
             const idExists = products.some(p => p.id === idNumeric);
             if (idExists) {
                 setErrorId("El ID ingresado ya existe. Ingrese un ID único.");
+                if (onFormSubmitSuccess) onFormSubmitSuccess("El ID ingresado ya existe. Ingrese un ID único.", "error");
                 return;
             }
-            // Asegura que el ID se guarde como número
-            setProduct(prevProduct => ({ ...prevProduct, id: idNumeric }));
-        }
-
-        const productToSave = {
-            ...product,
-            // Asegura que el ID sea numérico si está en modo edición 
-            id: modoEdicion ? parseInt(product.id, 10) : product.id,
-            price: priceNumeric, // Asegura que el precio sea numérico
-        };
-
-        if (modoEdicion) {
-            dispatch(updateProduct({ id: productToSave.id, updatedProduct: productToSave }));
-        } else {
+            newProductId = idNumeric;
+            productToSave = { ...productToSave, id: newProductId, price: priceNumeric };
             dispatch(addProduct(productToSave));
+            message = 'Producto guardado con éxito';
+            notificationType = 'success';
+        } else {
+            productToSave = { ...productToSave, id: parseInt(product.id, 10), price: priceNumeric };
+            dispatch(updateProduct({ id: productToSave.id, updatedProduct: productToSave }));
+            message = 'Producto editado con éxito';
+            notificationType = 'success';
         }
-        navigate('/Home');
+
+        if (onFormSubmitSuccess) {
+            onFormSubmitSuccess(message, notificationType);
+        } else {
+            navigate('/Home');
+        }
     };
 
     const formTitle = modoEdicion ? "Editar Producto" : "Agregar Nuevo Producto";
@@ -119,7 +127,7 @@ function ProductForm() {
             <Card className={styles.productFormCard}>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3"> 
+                        <Form.Group className="mb-3">
                             <Form.Label htmlFor="id">ID:</Form.Label>
                             <Form.Control
                                 type="number"
@@ -130,7 +138,7 @@ function ProductForm() {
                                 required
                                 placeholder="Ej: 101"
                                 disabled={modoEdicion}
-                                isInvalid={!!errorId} // Marcar como inválido si hay error
+                                isInvalid={!!errorId}
                             />
                             <Form.Control.Feedback type="invalid">
                                 {errorId}
@@ -162,17 +170,18 @@ function ProductForm() {
                             <Form.Control type="url" id="image" name="image" value={product.image} onChange={handleChange} placeholder="https://example.com/image.jpg" />
                         </Form.Group>
 
-                        {errorGeneral && <p className="text-danger mt-3">{errorGeneral}</p>} {/* Clase de Bootstrap para error */}
+                        {errorGeneral && <p className="text-danger mt-3">{errorGeneral}</p>}
 
                         <div className={styles.buttonContainer}>
-                            <Button variant="primary" type="submit" className={styles.submitButton}>
-                                {modoEdicion ? "Actualizar Producto" : "Guardar Producto"}
-                            </Button>
                             <Button
                                 variant="secondary"
                                 type="button"
                                 onClick={() => navigate('/Home')}
                                 className={styles.cancelButton}>Cancelar</Button>
+
+                            <Button variant="primary" type="submit" className={styles.submitButton}>
+                                {modoEdicion ? "Actualizar Producto" : "Guardar Producto"}
+                            </Button>
                         </div>
                     </Form>
                 </Card.Body>
