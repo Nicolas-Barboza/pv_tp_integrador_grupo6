@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 
 // Define the async thunk for fetching products
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
-    const response = await fetch('https://fakestoreapi.com/products'); 
+    const response = await fetch('https://fakestoreapi.com/products');
     const data = await response.json();
     return data;
   }
@@ -16,13 +16,13 @@ const productsSlice = createSlice({
     items: [],
     status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
+    searchTerm: '',
+    categoryFilter: 'all',
   },
   reducers: {
-    // Reducer for adding a new product
     addProduct: (state, action) => {
       state.items.push(action.payload);
     },
-    // Reducer for updating an existing product
     updateProduct: (state, action) => {
       const { id, updatedProduct } = action.payload;
       const existingProductIndex = state.items.findIndex(product => product.id === id);
@@ -30,10 +30,19 @@ const productsSlice = createSlice({
         state.items[existingProductIndex] = { ...state.items[existingProductIndex], ...updatedProduct };
       }
     },
-    // Reducer for deleting a product
     deleteProduct: (state, action) => {
       state.items = state.items.filter(product => product.id !== action.payload);
     },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
+    setCategoryFilter: (state, action) => {
+      state.categoryFilter = action.payload;
+    },
+    resetFilters: (state) => {
+      state.searchTerm = '';
+      state.categoryFilter = 'all';
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -51,5 +60,32 @@ const productsSlice = createSlice({
   },
 });
 
-export const { addProduct, updateProduct, deleteProduct } = productsSlice.actions;
+// Selectores básicos
+export const selectAllProducts = (state) => state.products.items;
+export const selectSearchTerm = (state) => state.products.searchTerm;
+export const selectCategoryFilter = (state) => state.products.categoryFilter;
+export const selectProductsStatus = (state) => state.products.status;
+export const selectProductsError = (state) => state.products.error;
+
+// Selector para productos filtrados (optimizado)
+export const selectFilteredProducts = createSelector(
+  [selectAllProducts, selectSearchTerm, selectCategoryFilter],
+  (items, searchTerm, categoryFilter) => {
+    const lowerSearchTerm = searchTerm.toLowerCase();
+
+    return items.filter(product => {
+      const matchesCategory = categoryFilter === 'all' ||
+        product.category === categoryFilter;
+
+      const matchesSearch = !searchTerm ||
+        product.title.toLowerCase().includes(lowerSearchTerm) ||
+        product.description.toLowerCase().includes(lowerSearchTerm);
+
+      return matchesCategory && matchesSearch;
+    });
+  }
+);
+
+
+export const { addProduct, updateProduct, deleteProduct, setSearchTerm, setCategoryFilter, resetFilters } = productsSlice.actions;
 export default productsSlice.reducer;
