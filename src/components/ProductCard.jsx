@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleFavorite } from '../redux/slices/favoritesSlice';
+import { addFavorite, removeFavorite } from '../redux/slices/favoritesSlice';
 import styles from '../styles/ProductCard.module.css';
 import { FaEye, FaHeart, FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import Card from 'react-bootstrap/Card';
@@ -47,7 +47,11 @@ function ProductCard({ product }) {
     const isFavorite = favorites.some(fav => fav.id === product.id);
 
     const handleToggleFavorite = () => {
-        dispatch(toggleFavorite(product));
+        if (isFavorite) {
+            dispatch(removeFavorite(product.id)); // Pasa solo el ID para remover
+        } else {
+            dispatch(addFavorite(product)); // Pasa el producto completo para añadir
+        }
     };
 
     return (

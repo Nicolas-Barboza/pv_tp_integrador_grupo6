@@ -1,39 +1,46 @@
-import React, { useEffect } from 'react'; 
-import { useSelector, useDispatch } from 'react-redux'; 
-import { fetchProducts } from '../redux/slices/productsSlice'; 
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts, selectFilteredProducts, setCategoryFilter } from '../redux/slices/productsSlice';
 import Titulo from '../components/Titulo';
 import ProductCard from '../components/ProductCard';
-import { Link } from 'react-router-dom';
-import { FaPlusCircle } from 'react-icons/fa';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Spinner from '../components/Spinner'; 
+import Spinner from '../components/Spinner';
+import '../styles/Home.css';
 
 const listContainerStyle = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
     gap: '20px',
-};
-const noProductsStyle = {
-    textAlign: 'center',
-    marginTop: '30px',
-    fontSize: '1.1em',
+    padding: '20px 0'
 };
 
-function Home() { 
+const categories = [
+    { id: 'all', name: 'Todos' },
+    { id: 'electronics', name: 'Electrónicos' },
+    { id: 'jewelery', name: 'Joyería' },
+    { id: "men's clothing", name: 'Ropa Masculina' },
+    { id: "women's clothing", name: 'Ropa Femenina' }
+];
+
+function Home() {
     const dispatch = useDispatch();
-    const products = useSelector(state => state.products.items);
+    const filteredProducts = useSelector(selectFilteredProducts);
     const productStatus = useSelector(state => state.products.status);
     const productError = useSelector(state => state.products.error);
+    const currentCategory = useSelector(state => state.products.categoryFilter);
 
     useEffect(() => {
         if (productStatus === 'idle') {
             dispatch(fetchProducts());
         }
     }, [productStatus, dispatch]);
+
+    const handleCategoryFilter = (category) => {
+        dispatch(setCategoryFilter(category));
+    };
 
     if (productStatus === 'loading') {
         return <Spinner />;
@@ -48,47 +55,46 @@ function Home() {
         );
     }
 
-    if (!products || products.length === 0) {
-        return (
-            <Container className="py-4">
-                <div className="d-flex justify-content-center align-items-center flex-column">
-                    <Titulo texto={"Lista de Productos"} />
-                    <div style={noProductsStyle}>
-                        <p>No hay productos para mostrar.</p>
-                        <Link to="/products/new" className="btn btn-success mt-3">
-                            Agregar Nuevo Producto
-                        </Link>
-                    </div>
-                </div>
-            </Container>
-        );
-    }
-
     return (
-        <Container className="pt-0 pb-4">
-            <Row className="mb-4 align-items-center">
-                <Col></Col>
-                <Col xs={12} md={6} lg={4} className="text-center"> 
-                    <Titulo texto={"Lista de Productos"} />
+        <Container className="pt-0 pb-4 home-container">
+            <Row className="mb-10">
+                <Col xs={12} className="text-center">
+                    <Titulo texto="Los Mejores Productos" />
                 </Col>
-                <Col className="text-end">
-                    <Link to="/products/new">
-                        <Button variant="primary" className="d-flex align-items-center ms-auto">
-                            <FaPlusCircle className="me-2" />
-                            Crear Nuevo Producto
-                        </Button>
-                    </Link>
+            </Row>
+
+            <Row className="mb-4 justify-content-center">
+                <Col xs={12} md={10} lg={8}>
+                    <div className="category-buttons-container">
+                        <div className="category-buttons">
+                            {categories.map((category) => (
+                                <button
+                                    key={category.id}
+                                    className={`category-btn ${currentCategory === category.id ? 'active' : ''}`}
+                                    onClick={() => handleCategoryFilter(category.id)}
+                                >
+                                    {category.name}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </Col>
             </Row>
 
             <div style={listContainerStyle}>
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                     <ProductCard
                         key={product.id}
                         product={product}
                     />
                 ))}
             </div>
+
+            {filteredProducts.length === 0 && productStatus === 'succeeded' && (
+                <div className="text-center py-5 no-products">
+                    <p>No se encontraron productos</p>
+                </div>
+            )}
         </Container>
     );
 }

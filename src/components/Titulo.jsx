@@ -4,7 +4,7 @@ function Titulo({ texto }) {
         fontSize: "35px",         
         fontWeight: "600",        
         color: "#2c3e50",         
-        margin: "30px 0 25px 0",   
+        margin: "10px 0 25px 0",   
         textAlign: "center",
         letterSpacing: "0.5px",    
     };
