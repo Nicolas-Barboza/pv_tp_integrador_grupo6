@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/ProductDetail.module.css';
-import { toggleFavorite } from '../redux/slices/favoritesSlice';
+import { addFavorite, removeFavorite } from '../redux/slices/favoritesSlice';
 import { FaHeart, FaEdit, FaTrashAlt, FaArrowLeft } from 'react-icons/fa';
 import ConfirmacionModal from '../components/ConfirmacionModal';
 import { useNavigate } from 'react-router-dom';
+
 
 function ProductDetail({ onDeleteSuccess }) {
     const { id: productIdParamString } = useParams();
@@ -55,7 +56,12 @@ function ProductDetail({ onDeleteSuccess }) {
 
     const handleToggleFavorite = () => {
         if (product) {
-            dispatch(toggleFavorite(product));
+            // Lógica condicional para añadir o remover
+            if (isFavorite) {
+                dispatch(removeFavorite(product.id)); // Pasa solo el ID para remover
+            } else {
+                dispatch(addFavorite(product)); // Pasa el producto completo para añadir
+            }
         }
     };
 

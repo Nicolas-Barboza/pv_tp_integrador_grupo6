@@ -4,9 +4,11 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import {
     FaReact, FaUniversity, FaGithub, FaCog, FaCloud,
     FaSyncAlt, FaExternalLinkAlt, FaCode, FaLaptopCode, FaHeart,
-    FaCheckCircle, FaTools, FaShieldAlt, FaShoppingCart
+    FaCheckCircle, FaTools, FaShieldAlt, FaShoppingCart,
+    FaDatabase, FaMobileAlt,
+    FaSearch, FaLock
 } from 'react-icons/fa';
-import { BsFillBoxSeamFill } from 'react-icons/bs'; 
+import { BsFillBoxSeamFill } from 'react-icons/bs';
 import styles from '../styles/AcercaDe.module.css';
 
 function AcercaDe() {
@@ -81,6 +83,8 @@ function AcercaDe() {
                             <span className={styles.techPill}><BsFillBoxSeamFill /> React Bootstrap</span>
                             <span className={styles.techPill}><FaExternalLinkAlt /> Fetch API</span>
                             <span className={styles.techPill}><FaCode /> Vite (Bundler)</span>
+                            <span className={styles.techPill}><FaDatabase /> Local Storage</span>
+                            <span className={styles.techPill}><FaMobileAlt /> React-Responsive</span>
                         </div>
                         <p className={`${styles.paragraphText} mt-4`}>
                             Priorizamos un conjunto de herramientas modernas y eficientes para garantizar un rendimiento óptimo y una experiencia de desarrollo ágil.
@@ -88,6 +92,7 @@ function AcercaDe() {
                     </Col>
                 </Row>
             </section>
+
             <section className={styles.sectionBlock}>
                 <h3 className={styles.sectionHeading}>Capacidades Clave</h3>
                 <Row>
@@ -105,6 +110,26 @@ function AcercaDe() {
                             <li><FaCheckCircle className={styles.listCheckIcon} /> Marcar/desmarcar productos con un solo clic.</li>
                             <li><FaCheckCircle className={styles.listCheckIcon} /> Página dedicada para gestionar productos favoritos.</li>
                             <li><FaCheckCircle className={styles.listCheckIcon} /> Estado gestionado globalmente con Redux.</li>
+                        </ul>
+                    </Col>
+                </Row>
+                <Row className="mt-4">
+                    <Col md={6}>
+                        <h4 className={styles.subHeading}><FaSearch /> Búsqueda y Filtrado</h4> {/* Nuevo encabezado */}
+                        <ul className={styles.featureList}>
+                            <li><FaCheckCircle className={styles.listCheckIcon} /> Búsqueda dinámica de productos por título y descripción.</li>
+                            <li><FaCheckCircle className={styles.listCheckIcon} /> Filtrado de productos por categoría.</li>
+                            <li><FaCheckCircle className={styles.listCheckIcon} /> Estado de búsqueda y filtros gestionado por Redux.</li>
+                            <li><FaCheckCircle className={styles.listCheckIcon} /> Uso de `createSelector` para selectores de datos optimizados.</li>
+                        </ul>
+                    </Col>
+                    <Col md={6}>
+                        <h4 className={styles.subHeading}><FaLock /> Autenticación y Seguridad </h4> {/* Nuevo encabezado */}
+                        <ul className={styles.featureList}>
+                            <li><FaCheckCircle className={styles.listCheckIcon} /> Flujo de registro, inicio de sesión y cierre de sesión de usuarios (simulado con LocalStorage).</li>
+                            <li><FaCheckCircle className={styles.listCheckIcon} /> Protección de rutas privadas mediante componentes `PrivateRoute`.</li>
+                            <li><FaCheckCircle className={styles.listCheckIcon} /> Redirección automática de usuarios no autenticados o ya logueados a rutas apropiadas.</li>
+                            <li><FaCheckCircle className={styles.listCheckIcon} /> Gestión del estado de sesión de usuario con Redux y persistencia local.</li>
                         </ul>
                     </Col>
                 </Row>

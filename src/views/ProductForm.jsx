@@ -8,8 +8,15 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+// Lista de categorías
+const CATEGORIAS = [
+    'electronics',
+    'jewelery',
+    'men\'s clothing',
+    'women\'s clothing'
+];
+
 const PRODUCTO_VACIO = {
-    id: '',
     title: '',
     price: '',
     description: '',
@@ -24,15 +31,27 @@ function ProductForm({ onFormSubmitSuccess }) {
     const products = useSelector(state => state.products.items);
     const [product, setProduct] = useState(PRODUCTO_VACIO);
     const [modoEdicion, setModoEdicion] = useState(false);
-    const [errorId, setErrorId] = useState('');
     const [errorGeneral, setErrorGeneral] = useState('');
+
+    // Generar nuevo ID automáticamente
+    const generateNewId = () => {
+        if (products.length === 0) return 100;
+        const maxId = Math.max(...products.map(p => p.id));
+        return maxId + 1;
+    };
 
     useEffect(() => {
         if (productIdParam && products && products.length > 0) {
             const productIdNumeric = parseInt(productIdParam, 10);
             const productToEdit = products.find(p => p.id === productIdNumeric);
             if (productToEdit) {
-                setProduct({ ...productToEdit, id: productToEdit.id.toString() });
+                setProduct({
+                    title: productToEdit.title,
+                    price: productToEdit.price.toString(),
+                    description: productToEdit.description,
+                    category: productToEdit.category,
+                    image: productToEdit.image
+                });
                 setModoEdicion(true);
             } else {
                 console.warn(`Producto con ID "${productIdParam}" no encontrado para editar.`);
@@ -43,7 +62,6 @@ function ProductForm({ onFormSubmitSuccess }) {
             setModoEdicion(false);
         }
         setErrorGeneral('');
-        setErrorId('');
     }, [productIdParam, products, navigate]);
 
     const handleChange = (e) => {
@@ -52,15 +70,12 @@ function ProductForm({ onFormSubmitSuccess }) {
             ...prevProduct,
             [name]: value,
         }));
-
-        if (name === 'id') setErrorId('');
         setErrorGeneral('');
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrorGeneral('');
-        setErrorId('');
 
         // Validaciones Básicas
         if (!product.title.trim() || !product.price || !product.description.trim() || !product.category.trim()) {
@@ -76,39 +91,27 @@ function ProductForm({ onFormSubmitSuccess }) {
             return;
         }
 
-        let productToSave = { ...product };
+        let productToSave = { 
+            ...product,
+            price: priceNumeric
+        };
+
         let message = '';
         let notificationType = '';
-        let newProductId = product.id;
 
-        if (!modoEdicion) {
-            const idString = product.id.toString().trim();
-            if (!idString) {
-                setErrorId("El campo ID es obligatorio.");
-                if (onFormSubmitSuccess) onFormSubmitSuccess("El campo ID es obligatorio.", "error");
-                return;
-            }
-            const idNumeric = parseInt(idString, 10);
-            if (isNaN(idNumeric) || idNumeric <= 0) {
-                setErrorId("El ID debe ser un número entero positivo.");
-                if (onFormSubmitSuccess) onFormSubmitSuccess("El ID debe ser un número entero positivo.", "error");
-                return;
-            }
-            const idExists = products.some(p => p.id === idNumeric);
-            if (idExists) {
-                setErrorId("El ID ingresado ya existe. Ingrese un ID único.");
-                if (onFormSubmitSuccess) onFormSubmitSuccess("El ID ingresado ya existe. Ingrese un ID único.", "error");
-                return;
-            }
-            newProductId = idNumeric;
-            productToSave = { ...productToSave, id: newProductId, price: priceNumeric };
-            dispatch(addProduct(productToSave));
-            message = 'Producto guardado con éxito';
+        if (modoEdicion) {
+            // Modo edición
+            const productIdNumeric = parseInt(productIdParam, 10);
+            productToSave = { ...productToSave, id: productIdNumeric };
+            dispatch(updateProduct({ id: productIdNumeric, updatedProduct: productToSave }));
+            message = 'Producto actualizado con éxito';
             notificationType = 'success';
         } else {
-            productToSave = { ...productToSave, id: parseInt(product.id, 10), price: priceNumeric };
-            dispatch(updateProduct({ id: productToSave.id, updatedProduct: productToSave }));
-            message = 'Producto editado con éxito';
+            // Modo creación
+            const newId = generateNewId();
+            productToSave = { ...productToSave, id: newId };
+            dispatch(addProduct(productToSave));
+            message = 'Producto creado con éxito';
             notificationType = 'success';
         }
 
@@ -127,47 +130,88 @@ function ProductForm({ onFormSubmitSuccess }) {
             <Card className={styles.productFormCard}>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3">
-                            <Form.Label htmlFor="id">ID:</Form.Label>
-                            <Form.Control
-                                type="number"
-                                id="id"
-                                name="id"
-                                value={product.id}
-                                onChange={handleChange}
-                                required
-                                placeholder="Ej: 101"
-                                disabled={modoEdicion}
-                                isInvalid={!!errorId}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                {errorId}
-                            </Form.Control.Feedback>
-                        </Form.Group>
+                        {modoEdicion && (
+                            <Form.Group className="mb-3">
+                                <Form.Label>ID:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={productIdParam}
+                                    disabled
+                                    readOnly
+                                />
+                            </Form.Group>
+                        )}
 
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="title">Título:</Form.Label>
-                            <Form.Control type="text" id="title" name="title" value={product.title} onChange={handleChange} required placeholder="Título del producto" />
+                            <Form.Control 
+                                type="text" 
+                                id="title" 
+                                name="title" 
+                                value={product.title} 
+                                onChange={handleChange} 
+                                required 
+                                placeholder="Título del producto" 
+                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="price">Precio:</Form.Label>
-                            <Form.Control type="number" id="price" name="price" value={product.price} onChange={handleChange} required placeholder="Ej: 29.99" step="0.01" />
+                            <Form.Control 
+                                type="number" 
+                                id="price" 
+                                name="price" 
+                                value={product.price} 
+                                onChange={handleChange} 
+                                required 
+                                placeholder="Ej: 29.99" 
+                                step="0.01" 
+                                min="0.01"
+                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="description">Descripción:</Form.Label>
-                            <Form.Control as="textarea" id="description" name="description" value={product.description} onChange={handleChange} required placeholder="Descripción detallada del producto" rows="4" />
+                            <Form.Control 
+                                as="textarea" 
+                                id="description" 
+                                name="description" 
+                                value={product.description} 
+                                onChange={handleChange} 
+                                required 
+                                placeholder="Descripción detallada del producto" 
+                                rows="4" 
+                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="category">Categoría:</Form.Label>
-                            <Form.Control type="text" id="category" name="category" value={product.category} onChange={handleChange} required placeholder="Ej: electronics, jewelry" />
+                            <Form.Select
+                                id="category"
+                                name="category"
+                                value={product.category}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="">Seleccione una categoría</option>
+                                {CATEGORIAS.map(cat => (
+                                    <option key={cat} value={cat}>
+                                        {cat}
+                                    </option>
+                                ))}
+                            </Form.Select>
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="image">URL de la Imagen:</Form.Label>
-                            <Form.Control type="url" id="image" name="image" value={product.image} onChange={handleChange} placeholder="https://example.com/image.jpg" />
+                            <Form.Control 
+                                type="url" 
+                                id="image" 
+                                name="image" 
+                                value={product.image} 
+                                onChange={handleChange} 
+                                placeholder="https://example.com/image.jpg" 
+                            />
                         </Form.Group>
 
                         {errorGeneral && <p className="text-danger mt-3">{errorGeneral}</p>}
@@ -177,9 +221,16 @@ function ProductForm({ onFormSubmitSuccess }) {
                                 variant="secondary"
                                 type="button"
                                 onClick={() => navigate('/Home')}
-                                className={styles.cancelButton}>Cancelar</Button>
+                                className={styles.cancelButton}
+                            >
+                                Cancelar
+                            </Button>
 
-                            <Button variant="primary" type="submit" className={styles.submitButton}>
+                            <Button 
+                                variant="primary" 
+                                type="submit" 
+                                className={styles.submitButton}
+                            >
                                 {modoEdicion ? "Actualizar Producto" : "Guardar Producto"}
                             </Button>
                         </div>

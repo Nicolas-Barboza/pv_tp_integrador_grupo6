@@ -1,0 +1,47 @@
+.category-buttons-container {
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.category-btn {
+    padding: 8px 16px;
+    border: 2px solid #17a2b8;
+    border-radius: 20px;
+    background-color: white;
+    color: #17a2b8;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Estado activo */
+.category-btn.active {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.category-btn:active {
+    transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+    .category-buttons {
+        gap: 12px;
+    }
+    
+    .category-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
