@@ -43,7 +43,6 @@ function AppContent({ mostrarNotification }) {
                         <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
                         <Route path="/products/:id" element={<PrivateRoute><ProductDetail onDeleteSuccess={handleProductDeleteSuccess} /></PrivateRoute>} />
                         <Route path="/products/new" element={<PrivateRoute><ProductForm onFormSubmitSuccess={handleProductFormSuccess} /></PrivateRoute>} />
-                        <Route path="/products/new" element={<PrivateRoute><ProductForm onFormSubmitSuccess={handleProductFormSuccess} /></PrivateRoute>} />
                         <Route path="/products/:id/edit" element={<PrivateRoute><ProductForm onFormSubmitSuccess={handleProductFormSuccess} /></PrivateRoute>} />
                         <Route path="/favorites" element={<PrivateRoute><FavoritesPage /></PrivateRoute>} />
                         <Route path="/acerca" element={<PrivateRoute><AcercaDe /></PrivateRoute>} />
