@@ -8,6 +8,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from '../components/Spinner';
 import '../styles/Home.css';
+import { FaSyncAlt } from 'react-icons/fa';
+
 
 const listContainerStyle = {
     display: 'flex',
@@ -62,7 +64,11 @@ function Home() {
                     <Titulo texto="Los Mejores Productos" />
                 </Col>
             </Row>
-
+            <div className="refresh-button-wrapper">
+                <button className="refresh-btn" onClick={() => dispatch(fetchProducts(true))} title="Refrescar">
+                    <FaSyncAlt />
+                </button>
+            </div>
             <Row className="mb-4 justify-content-center">
                 <Col xs={12} md={10} lg={8}>
                     <div className="category-buttons-container">

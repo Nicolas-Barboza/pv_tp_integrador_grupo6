@@ -35,13 +35,40 @@
     transform: scale(0.98);
 }
 
-@media (min-width: 768px) {
-    .category-buttons {
-        gap: 12px;
+.refresh-button-wrapper {
+    position: absolute;
+    top: 80px;  
+    right: 20px;
+    z-index: 1000;
+}
+
+.refresh-btn {
+    padding: 10px;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.refresh-btn:hover {
+    background-color: #138496;
+}
+
+/* Responsive para celular */
+@media (max-width: 768px) {
+    .refresh-button-wrapper {
+        top: 85px;  
+        right: 10px;
     }
-    
-    .category-btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+
+    .refresh-btn {
+        padding: 8px;
+        font-size: 1rem;
     }
 }

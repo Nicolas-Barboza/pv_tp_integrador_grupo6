@@ -120,7 +120,7 @@ function ProductDetail({ onDeleteSuccess }) {
                             </div>
                             <hr className={styles.lineaDivisoria} />
                             <p className={styles.precioDetalle}><strong>Precio:</strong> ${product.price}</p>
-                            <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Stock:</strong> {product.rating?.count || "N/A"}</p><hr className={styles.lineaDivisoria} />
+                            <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Stock:</strong> {product.stock ?? product.rating?.count ?? "N/A"}</p>
                             <p className={styles.parrafoDetalle}><strong className={styles.strongDetalle}>Descripción:</strong> {product.description}</p>
                         </div>
                     </div>

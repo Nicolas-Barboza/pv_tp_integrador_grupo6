@@ -22,6 +22,7 @@ const PRODUCTO_VACIO = {
     description: '',
     category: '',
     image: '',
+    stock: 0 
 };
 
 function ProductForm({ onFormSubmitSuccess }) {
@@ -50,7 +51,8 @@ function ProductForm({ onFormSubmitSuccess }) {
                     price: productToEdit.price.toString(),
                     description: productToEdit.description,
                     category: productToEdit.category,
-                    image: productToEdit.image
+                    image: productToEdit.image,
+                    stock: productToEdit.stock || 0 // Asegurar compatibilidad con productos existentes
                 });
                 setModoEdicion(true);
             } else {
@@ -91,9 +93,17 @@ function ProductForm({ onFormSubmitSuccess }) {
             return;
         }
 
+        const stockNumeric = parseInt(product.stock, 10);
+        if (isNaN(stockNumeric) || stockNumeric < 0) {
+            setErrorGeneral("El stock debe ser un número entero positivo o cero.");
+            if (onFormSubmitSuccess) onFormSubmitSuccess("El stock debe ser un número entero positivo o cero.", "error");
+            return;
+        }
+
         let productToSave = { 
             ...product,
-            price: priceNumeric
+            price: priceNumeric,
+            stock: stockNumeric
         };
 
         let message = '';
@@ -167,6 +177,20 @@ function ProductForm({ onFormSubmitSuccess }) {
                                 placeholder="Ej: 29.99" 
                                 step="0.01" 
                                 min="0.01"
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="stock">Stock:</Form.Label>
+                            <Form.Control 
+                                type="number" 
+                                id="stock" 
+                                name="stock" 
+                                value={product.stock} 
+                                onChange={handleChange} 
+                                required 
+                                placeholder="Cantidad disponible" 
+                                min="0"
                             />
                         </Form.Group>
 
